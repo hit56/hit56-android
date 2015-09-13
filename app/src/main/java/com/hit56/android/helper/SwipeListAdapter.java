@@ -28,12 +28,10 @@ public class SwipeListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<com.hit56.android.helper.FeedItem> feedItems;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-    private String[] bgColors;
 
     public SwipeListAdapter(Activity activity, List<com.hit56.android.helper.FeedItem> feedItemList) {
         this.activity = activity;
         this.feedItems = feedItemList;
-        bgColors = activity.getApplicationContext().getResources().getStringArray(R.array.movie_serial_bg);
     }
 
     @Override

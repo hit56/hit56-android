@@ -6,12 +6,4 @@
     <color name="feed_item_border">#c2c3c8</color>
     <color name="link">#0a80d1</color>
     <color name="timestamp">#a0a3a7</color>
-    <string-array name="movie_serial_bg">
-        <item>#24c6d5</item>
-        <item>#57dd86</item>
-        <item>#ad7dcf</item>
-        <item>#ff484d</item>
-        <item>#fcba59</item>
-        <item>#24c6d5</item>
-    </string-array>
 </resources>

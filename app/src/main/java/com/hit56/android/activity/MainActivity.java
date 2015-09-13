@@ -1,12 +1,13 @@
 package com.hit56.android.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener {
 
     private String TAG = MainActivity.class.getSimpleName();
 
@@ -53,11 +54,13 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
+
         // These two lines not needed,
         // just to get the look of facebook (changing background color & hiding the icon)
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
-        getSupportActionBar().setIcon(
+        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
+        getActionBar().setIcon(
                 new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
         // create class object
