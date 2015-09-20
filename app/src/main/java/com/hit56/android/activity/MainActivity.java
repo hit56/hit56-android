@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Window;
 import android.widget.ListView;
@@ -22,6 +22,8 @@ import com.hit56.android.R;
 import com.hit56.android.app.AppController;
 import com.hit56.android.helper.FeedItem;
 import com.hit56.android.helper.SwipeListAdapter;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,21 +34,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends Activity implements SwipyRefreshLayout.OnRefreshListener {
 
     private String TAG = MainActivity.class.getSimpleName();
 
     private String URL_TOP_250 = "http://www.hit56.com:8083/getinfo/";
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SwipyRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private SwipeListAdapter adapter;
     private List<FeedItem> feedItemList;
 
     // initially offset will be 0, later will be updated while parsing the json
-    private long offSet = 0;
-    double latitude;
-    double longitude;
+    private long min_offSet = Long.MAX_VALUE;
+    private long max_offSet = Long.MIN_VALUE;
+    private double latitude;
+    private double longitude;
 
     GPSTracker gps;
 
@@ -68,10 +71,10 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
         // check if GPS enabled
         if (gps.canGetLocation()) {
 
-             latitude = gps.getLatitude();
-             longitude = gps.getLongitude();
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
             // \n is for new line
-            Toast.makeText(getApplicationContext(), "\tYour Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "\tYour Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
         } else {
             // can't get location
             // GPS or Network is not enabled
@@ -81,7 +84,7 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
 
 
         listView = (ListView) findViewById(R.id.listView);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.swipyrefreshlayout);
         feedItemList = new ArrayList<>();
         adapter = new SwipeListAdapter(this, feedItemList);
         listView.setAdapter(adapter);
@@ -94,7 +97,7 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
-                fetchMovies();
+                fetchFeedItems("top");
             }
         });
     }
@@ -103,8 +106,27 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
      * This method is called when swipe refresh is pulled down
      */
     @Override
-    public void onRefresh() {
-        fetchMovies();
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+
+        Log.d("MainActivity", "Refresh triggered at "
+                + (direction == SwipyRefreshLayoutDirection.TOP ? "top" : "bottom"));
+        if (direction == SwipyRefreshLayoutDirection.TOP) {
+            fetchFeedItems("top");
+        } else {
+            fetchFeedItems("bottom");
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Hide the refresh after 2sec
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }, 5000);
     }
 
     /**
@@ -129,6 +151,14 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
                 item.setProfilePic(feedObj.getString("profilePic"));
                 item.setTimeStamp(feedObj.getString("time"));
 
+                //update min_offset and max_offset
+                if(Long.parseLong(feedObj.getString("time")) > max_offSet){
+                    max_offSet = Long.parseLong(feedObj.getString("time"));
+                }
+                if(Long.parseLong(feedObj.getString("time")) < min_offSet){
+                    min_offSet = Long.parseLong(feedObj.getString("time"));
+                }
+
                 // url might be null sometimes
                 String feedUrl = feedObj.isNull("url") ? null : feedObj
                         .getString("url");
@@ -147,21 +177,21 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
     /**
      * Fetching movies json by making http call
      */
-    private void fetchMovies() {
+    private void fetchFeedItems(String direction) {
 
         // showing refresh animation before making http call
         swipeRefreshLayout.setRefreshing(true);
 
         // appending offset to url
-//        String url = URL_TOP_250 + offSet;
-        String url = URL_TOP_250;
-//        mylistener.getCity(String.valueOf(location.getLatitude()),
-//                String.valueOf(location.getLongitude())
-//        );
-//        String fuck = url + city + "/0";
-        String fuck = "http://www.hit56.com:8083/getinfo/"+latitude+"/"+longitude+"/"+offSet;
+        String url = "http://www.hit56.com:8083/getinfo/goods/";
+        if(direction == "top"){
+            url += latitude + "/" + longitude + "/" + max_offSet + "/" + direction;
+        } else {
+            url += latitude + "/" + longitude + "/" + min_offSet + "/" + direction;
+        }
+
         // Volley's json array request object
-        JsonArrayRequest req = new JsonArrayRequest(fuck,
+        JsonArrayRequest req = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -202,4 +232,5 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }
+
 }

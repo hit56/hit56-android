@@ -1,7 +1,10 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_refresh_layout"
+<com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipyrefreshlayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    app:direction="both"
     style="@style/AppTheme">
 
     <ListView
@@ -11,4 +14,4 @@
 
     </ListView>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
