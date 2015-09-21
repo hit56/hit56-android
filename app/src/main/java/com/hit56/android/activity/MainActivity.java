@@ -175,7 +175,7 @@ public class MainActivity extends Activity implements SwipyRefreshLayout.OnRefre
     }
 
     /**
-     * Fetching movies json by making http call
+     * Fetching feed items json by making http call
      */
     private void fetchFeedItems(String direction) {
 
