@@ -1,14 +1,18 @@
 package com.hit56.android.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Window;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -34,7 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity implements SwipyRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity
+        implements SwipyRefreshLayout.OnRefreshListener {
 
     private String TAG = MainActivity.class.getSimpleName();
 
@@ -44,6 +49,10 @@ public class MainActivity extends Activity implements SwipyRefreshLayout.OnRefre
     private ListView listView;
     private SwipeListAdapter adapter;
     private List<FeedItem> feedItemList;
+
+    // action bar
+    private android.support.v7.app.ActionBar actionBar;
+    // Title navigation Spinner data
 
     // initially offset will be 0, later will be updated while parsing the json
     private long min_offSet = Long.MAX_VALUE;
@@ -57,14 +66,18 @@ public class MainActivity extends Activity implements SwipyRefreshLayout.OnRefre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
 
+        actionBar = getSupportActionBar();
         // These two lines not needed,
         // just to get the look of facebook (changing background color & hiding the icon)
-        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
-        getActionBar().setIcon(
-                new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
+        actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+
+        // Hide the action bar title
+//        actionBar.setDisplayShowTitleEnabled(false);
+
+
 
         // create class object
         gps = new GPSTracker(MainActivity.this);
@@ -102,6 +115,35 @@ public class MainActivity extends Activity implements SwipyRefreshLayout.OnRefre
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_share) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     /**
      * This method is called when swipe refresh is pulled down
      */
@@ -232,5 +274,4 @@ public class MainActivity extends Activity implements SwipyRefreshLayout.OnRefre
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }
-
 }
