@@ -2,17 +2,21 @@ package com.hit56.android.activity;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -118,14 +122,21 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
 
         // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search)
-                .getActionView();
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getComponentName()));
+        MenuItem searchItem = menu.findItem(R.id.menu_search);
+        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = null;
+        if (searchItem != null) {
+            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
+        }
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(
+                new ComponentName(getApplicationContext(), SearchResultsActivity.class)));
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -140,6 +151,15 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_share) {
             return true;
+        } else if (id == R.id.menu_search){
+            //新建一个Intent
+            Intent intent = new Intent();
+            //制定intent要启动的类
+            intent.setClass(MainActivity.this, SearchResultsActivity.class);
+            //启动一个新的Activity
+            startActivity(intent);
+//            //关闭当前的
+//            MainActivity.this.finish();
         }
 
         return super.onOptionsItemSelected(item);
