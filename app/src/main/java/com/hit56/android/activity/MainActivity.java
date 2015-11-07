@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity
 
     private String TAG = MainActivity.class.getSimpleName();
 
-    private String URL_TOP_250 = "http://www.hit56.com:8083/getinfo/";
-
     private SwipyRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private SwipeListAdapter adapter;
@@ -138,8 +136,23 @@ public class MainActivity extends AppCompatActivity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(
                 new ComponentName(getApplicationContext(), SearchResultsActivity.class)));
 
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//        }
+
         return super.onCreateOptionsMenu(menu);
     }
+//    @Override
+//    public boolean onSearchRequested() {
+//
+//        // your logic here
+//
+//        return false;  // don't go ahead and show the search box
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -239,7 +252,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * Fetching feed items json by making http call
      */
-    private void fetchFeedItems(String direction) {
+    public void fetchFeedItems(String direction) {
 
         // showing refresh animation before making http call
         swipeRefreshLayout.setRefreshing(true);
