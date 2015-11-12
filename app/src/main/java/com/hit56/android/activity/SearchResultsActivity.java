@@ -8,18 +8,21 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.hit56.android.R;
+import com.hit56.android.helper.SwipeListAdapter;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 
-public class SearchResultsActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-	private TextView txtQuery;
+public class SearchResultsActivity  extends BaseHit56Activity {
+
+//	private TextView txtQuery;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,30 @@ public class SearchResultsActivity extends AppCompatActivity {
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
 		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
-		txtQuery = (TextView) findViewById(R.id.txtQuery);
+//		txtQuery = (TextView) findViewById(R.id.txtQuery);
 
 		handleIntent(getIntent());
+
+		super.use_gps = false;
+		super.query = getIntent().getStringExtra(SearchManager.QUERY);
+		super.listView = (ListView) findViewById(R.id.listView);
+		super.swipeRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.swipyrefreshlayout);
+		super.feedItemList = new ArrayList<>();
+		super.adapter = new SwipeListAdapter(this, super.feedItemList);
+		super.listView.setAdapter(adapter);
+		super.swipeRefreshLayout.setOnRefreshListener(this);
+
+		/**
+		 * Showing Swipe Refresh animation on activity create
+		 * As animation won't start on onCreate, post runnable is used
+		 */
+		super.swipeRefreshLayout.post(new Runnable() {
+			@Override
+			public void run() {
+				swipeRefreshLayout.setRefreshing(true);
+				fetchFeedItems("top");
+			}
+		});
 	}
 
 	@Override
@@ -56,15 +80,14 @@ public class SearchResultsActivity extends AppCompatActivity {
 	 */
 	private void handleIntent(Intent intent) {
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-			String query = intent.getStringExtra(SearchManager.QUERY);
-
+//			super.query = intent.getStringExtra(SearchManager.QUERY);
 			/**
 			 * Use this query to display search results like 
 			 * 1. Getting the data from SQLite and showing in listview 
 			 * 2. Making webrequest and displaying the data 
 			 * For now we just display the query only
 			 */
-			txtQuery.setText("Search Query: " + query);
+//			txtQuery.setText("Search Query: " + query);
 
 		}
 
