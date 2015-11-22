@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class BaseHit56Activity extends AppCompatActivity
         implements SwipyRefreshLayout.OnRefreshListener {
-    private final String URL_PREIFX = "http://www.hit56.com:8083/getinfo";
+    private final String URL_PREIFX = "http://www.hit56.com:8083/getinfo/" + MainActivity.IMEI;
     private String TAG = BaseHit56Activity.class.getSimpleName();
     private GPSTracker gps;
     // initially offset will be 0, later will be updated while parsing the json
@@ -67,12 +67,7 @@ public class BaseHit56Activity extends AppCompatActivity
             @Override
             public void run() {
                 //Hide the refresh after 2sec
-                BaseHit56Activity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
                         swipeRefreshLayout.setRefreshing(false);
-                    }
-                });
             }
         }, 5000);
     }
@@ -109,7 +104,7 @@ public class BaseHit56Activity extends AppCompatActivity
     private String getCityUrl(String direction) throws UnsupportedEncodingException {
 
         if(direction == "top"){
-                return URL_PREIFX + "/" + URLEncoder.encode(query, "utf-8") + "/" +  max_offSet + "/" + direction;
+                return URL_PREIFX + "/"+ URLEncoder.encode(query, "utf-8") + "/" +  max_offSet + "/" + direction;
         }
             return URL_PREIFX + "/" + URLEncoder.encode(query, "utf-8") + "/" + min_offSet + "/" +  direction;
     }

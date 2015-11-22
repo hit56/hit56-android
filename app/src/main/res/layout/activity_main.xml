@@ -1,17 +1,25 @@
-<com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipyrefreshlayout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    app:direction="both"
-    style="@style/AppTheme">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+    <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
 
-    <ListView
-        android:layout_width="fill_parent"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView">
-
-    </ListView>
-
-</com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+        android:background="?attr/colorPrimary"
+        app:tabMode="fixed"
+        app:tabGravity="fill"/>
+</LinearLayout>

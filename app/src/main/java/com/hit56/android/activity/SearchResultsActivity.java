@@ -4,11 +4,10 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,20 +29,9 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 		setContentView(R.layout.activity_search_results);
 
 		// get the action bar
-		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-
-		// Enabling Back navigation on Action Bar icon
-//		actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
-		actionBar.setDisplayShowHomeEnabled(true);
-		actionBar.setHomeButtonEnabled(true);
-		actionBar.setDisplayHomeAsUpEnabled(true);
-
-		// These two lines not needed,
-		// just to get the look of facebook (changing background color & hiding the icon)
-		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
-		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-
-//		txtQuery = (TextView) findViewById(R.id.txtQuery);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		handleIntent(getIntent());
 
@@ -97,7 +85,7 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.menu_search, menu);
+		menuInflater.inflate(R.menu.menu_main, menu);
 
 		// Associate searchable configuration with the SearchView
 		MenuItem searchItem = menu.findItem(R.id.menu_search);
@@ -124,5 +112,6 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+
 	}
 }
