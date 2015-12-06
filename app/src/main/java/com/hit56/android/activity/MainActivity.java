@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.hit56.android.GPSTracker;
 import com.hit56.android.R;
 import com.hit56.android.fragments.OneFragment;
 import com.hit56.android.fragments.ThreeFragment;
@@ -29,6 +30,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static String IMEI = "NULL";
+    public static double latitude;
+    public static double longitude;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -41,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        MainActivity.IMEI = TelephonyMgr.getDeviceId();
+        setGpsPosition();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -55,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        MainActivity.IMEI = TelephonyMgr.getDeviceId();
+
 
     }
 
@@ -112,15 +120,9 @@ public class MainActivity extends AppCompatActivity {
         // Associate searchable configuration with the SearchView
         MenuItem searchItem = menu.findItem(R.id.menu_search);
         SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = null;
-        if (searchItem != null) {
-            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
-        }
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(
-                new ComponentName(getApplicationContext(), SearchResultsActivity.class)));
+
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(getApplicationContext(), SearchResultsActivity.class)));
 
 
         return super.onCreateOptionsMenu(menu);
@@ -152,5 +154,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setGpsPosition(){
+        // create class object
+        GPSTracker gps = new GPSTracker(MainActivity.this);
+        // check if GPS enabled
+        if (gps.canGetLocation()) {
+
+            MainActivity.latitude = gps.getLatitude();
+            MainActivity.longitude = gps.getLongitude();
+            // \n is for new line
+//            Toast.makeText(getApplicationContext(), "\tYour Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+        } else {
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }
+
+    }
 
 }

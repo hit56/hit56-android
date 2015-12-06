@@ -67,19 +67,19 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 	 * Handling intent data
 	 */
 	private void handleIntent(Intent intent) {
+		/**
+		 * Use this query to display search results like
+		 * 1. Getting the data from SQLite and showing in listview
+		 * 2. Making webrequest and displaying the data
+		 * For now we just display the query only
+		 */
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//			super.query = intent.getStringExtra(SearchManager.QUERY);
-			/**
-			 * Use this query to display search results like 
-			 * 1. Getting the data from SQLite and showing in listview 
-			 * 2. Making webrequest and displaying the data 
-			 * For now we just display the query only
-			 */
-//			txtQuery.setText("Search Query: " + query);
+			String searchText = intent.getStringExtra(SearchManager.QUERY);
 
 		}
 
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,28 +90,21 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 		// Associate searchable configuration with the SearchView
 		MenuItem searchItem = menu.findItem(R.id.menu_search);
 		SearchManager searchManager = (SearchManager) SearchResultsActivity.this.getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = null;
-		if (searchItem != null) {
-			searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-		}
-		if (searchView != null) {
-			searchView.setSearchableInfo(searchManager.getSearchableInfo(SearchResultsActivity.this.getComponentName()));
-		}
-		searchView.setSearchableInfo(searchManager.getSearchableInfo(
-				new ComponentName(getApplicationContext(), SearchResultsActivity.class)));
+		SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(getApplicationContext(), SearchResultsActivity.class)));
 
 		return super.onCreateOptionsMenu(menu);
 	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				this.finish();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-
-	}
+//
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		switch (item.getItemId()) {
+//			case android.R.id.home:
+//				this.finish();
+//				return true;
+//			default:
+//				return super.onOptionsItemSelected(item);
+//		}
+//
+//	}
 }
