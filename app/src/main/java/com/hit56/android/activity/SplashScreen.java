@@ -36,6 +36,7 @@ public class SplashScreen extends Activity {
 				finish();
 			}
 		}, SPLASH_TIME_OUT);
-	}
 
+
+	}
 }

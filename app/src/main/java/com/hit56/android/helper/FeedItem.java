@@ -3,29 +3,20 @@ package com.hit56.android.helper;
 
 public class FeedItem {
     private int id;
-    private String name, detail, image, profilePic, timeStamp, url;
+    private String name, detail, image, profilePic, timeStamp, cell;
 
     public FeedItem() {
     }
 
-    public FeedItem(int id, String name, String image, String detail,
-                    String profilePic, String timeStamp, String url) {
+    public FeedItem(String name, String image, String detail,
+                    String profilePic, String timeStamp, String cell) {
         super();
-        this.id = id;
         this.name = name;
         this.image = image;
         this.detail = detail;
         this.profilePic = profilePic;
         this.timeStamp = timeStamp;
-        this.url = url;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.cell = cell;
     }
 
     public String getName() {
@@ -37,7 +28,7 @@ public class FeedItem {
     }
 
     public String getImge() {
-        return "";
+        return image;
     }
 
     public void setImge(String image) {
@@ -68,11 +59,11 @@ public class FeedItem {
         this.timeStamp = timeStamp;
     }
 
-    public String getUrl() {
-        return url;
+    public String getCell() {
+        return cell;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setCell(String cell) {
+        this.cell = cell;
     }
 }

@@ -1,9 +1,13 @@
 package com.hit56.android.activity;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,6 +22,8 @@ import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.hit56.android.GPSTracker;
 import com.hit56.android.R;
@@ -33,6 +39,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG = "MainActivity";
+    /**
+     * Root of the layout of this Activity.
+     */
+    private View mLayout;
+    /**
+     * Id to identify a camera permission request.
+     */
+    private static final int REQUEST_CAMERA = 0;
+
     public static String IMEI = "NULL";
     public static double latitude;
     public static double longitude;
@@ -68,7 +84,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+//        getAllAppPermissions(this.getApplicationContext());
+        onCheckUpdateClick(false);
     }
+
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -83,21 +103,6 @@ public class MainActivity extends AppCompatActivity {
 //        adapter.addFrag(new ThreeFragment(), "我的");
         viewPager.setAdapter(adapter);
     }
-
-
-//    /**
-//     * 监听返回--是否退出程序
-//     */
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            // 是否退出应用
-//            if (AppContext.get(AppConfig.KEY_DOUBLE_CLICK_EXIT, true)) {
-//                return mDoubleClickExit.onKeyDown(keyCode, event);
-//            }
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -146,14 +151,25 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void onCheckUpdateClick() {
+    public void onCheckUpdateClick(boolean user_initiative_click) {
         UpdateManager manager = new UpdateManager(this);
-        UpdateOptions options = new UpdateOptions.Builder(this)
-                .checkUrl("http://www.hit56.com:8083/getinfo/866946026709755/40.06338/116.351041")
-                .updateFormat(UpdateFormat.JSON)
-                .updatePeriod(new UpdatePeriod(UpdatePeriod.EACH_TIME))
-                .checkPackageName(true)
-                .build();
+        UpdateOptions options =null;
+        if(user_initiative_click){
+            options= new UpdateOptions.Builder(this)
+                    .checkUrl("http://www.hit56.com:8083/getinfo/"+MainActivity.IMEI+"/true")
+                    .updateFormat(UpdateFormat.JSON)
+                    .updatePeriod(new UpdatePeriod(UpdatePeriod.EACH_TIME))
+                    .checkPackageName(true)
+                    .build();
+        } else {
+            options= new UpdateOptions.Builder(this)
+                    .checkUrl("http://www.hit56.com:8083/getinfo/"+MainActivity.IMEI+"/false")
+                    .updateFormat(UpdateFormat.JSON)
+                    .updatePeriod(new UpdatePeriod(UpdatePeriod.EACH_TIME))
+                    .checkPackageName(true)
+                    .build();
+        }
+
         manager.check(this, options);
     }
 
@@ -174,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
             //关闭当前的
 //            MainActivity.this.finish();
         } else if (id == R.id.action_update) {
-            onCheckUpdateClick();
+            onCheckUpdateClick(true);
         }
 
         return super.onOptionsItemSelected(item);
@@ -196,5 +212,63 @@ public class MainActivity extends AppCompatActivity {
             // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
         }
+    }
+
+    /**
+     * get all <uses-permission> tags included under <manifest>
+     *
+     * @param context
+     */
+    public void getAllAppPermissions(Context context) {
+        PackageManager pm = context.getPackageManager();
+        PackageInfo packageInfo;
+        try {
+            //Array of all <uses-permission> tags included under <manifest>, or null if there were none.
+            packageInfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
+            String permissions[] = packageInfo.requestedPermissions;
+
+            if (permissions != null) { //to list permission
+                for (String permission : permissions) {
+                    boolean hasPerm = checkPermission(context, permission);
+                    System.out.println("检查权限");
+                    if (!hasPerm) {
+                        System.out.println("没有权限");
+                        AlertDialog dialog = new AlertDialog.Builder(context)
+                                .setTitle("提示")
+                                .setMessage("请添加权限："+permission)
+                                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .setCancelable(false)
+                                .create();
+                        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                        dialog.show();
+                    }
+                }
+            }
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * check permission at runtime
+     *
+     * @param context
+     * @return
+     */
+    public static boolean checkPermission(Context context, String permission) {
+        PackageManager pm = context.getPackageManager();
+        return PackageManager.PERMISSION_GRANTED ==  pm.checkPermission(permission, context.getPackageName());
     }
 }

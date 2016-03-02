@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.NetworkResponse;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefreshListener{
+public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefreshListener {
     private final String URL_PREIFX = "http://www.hit56.com:8083/getinfo/" + MainActivity.IMEI;
 //    private final String URL_PREIFX = "127.0.0.1:8083/getinfo/" + MainActivity.IMEI;
     private String TAG = OneFragment.class.getSimpleName();
@@ -61,8 +62,16 @@ public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefre
         listView = (ListView) rootView.findViewById(R.id.listView);
         swipeRefreshLayout = (SwipyRefreshLayout) rootView.findViewById(R.id.swipyrefreshlayout);
         feedItemList = new ArrayList<>();
+
         adapter = new SwipeListAdapter(getActivity(), feedItemList);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(this);
         /**
          * Showing Swipe Refresh animation on activity create
@@ -190,7 +199,6 @@ public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefre
                 JSONObject feedObj = (JSONObject) feedArray.get(i);
 
                 FeedItem item = new FeedItem();
-                item.setId(feedObj.getInt("cell"));
                 item.setName(feedObj.getString("name"));
 
                 // Image might be null sometimes
@@ -210,9 +218,9 @@ public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefre
                 }
 
                 // url might be null sometimes
-                String feedUrl = feedObj.isNull("url") ? null : feedObj
-                        .getString("url");
-                item.setUrl(feedUrl);
+                String feedCell = feedObj.isNull("cell") ? null : feedObj
+                        .getString("cell");
+                item.setCell(feedCell);
 
                 feedItemList.add(item);
             }
@@ -223,4 +231,5 @@ public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefre
             e.printStackTrace();
         }
     }
+
 }

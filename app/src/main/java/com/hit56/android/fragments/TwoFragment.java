@@ -190,7 +190,6 @@ public class TwoFragment extends Fragment implements SwipyRefreshLayout.OnRefres
                 JSONObject feedObj = (JSONObject) feedArray.get(i);
 
                 FeedItem item = new FeedItem();
-                item.setId(feedObj.getInt("cell"));
                 item.setName(feedObj.getString("name"));
 
                 // Image might be null sometimes
@@ -209,10 +208,10 @@ public class TwoFragment extends Fragment implements SwipyRefreshLayout.OnRefres
                     min_offSet = Long.parseLong(feedObj.getString("time"));
                 }
 
-                // url might be null sometimes
-                String feedUrl = feedObj.isNull("url") ? null : feedObj
-                        .getString("url");
-                item.setUrl(feedUrl);
+                // cell might be null sometimes
+                String feedCell = feedObj.isNull("cell") ? null : feedObj
+                        .getString("cell");
+                item.setCell(feedCell);
 
                 feedItemList.add(item);
             }

@@ -180,7 +180,6 @@ public class BaseHit56Activity extends AppCompatActivity
                 JSONObject feedObj = (JSONObject) feedArray.get(i);
 
                 FeedItem item = new FeedItem();
-                item.setId(feedObj.getInt("cell"));
                 item.setName(feedObj.getString("name"));
 
                 // Image might be null sometimes
@@ -200,9 +199,9 @@ public class BaseHit56Activity extends AppCompatActivity
                 }
 
                 // url might be null sometimes
-                String feedUrl = feedObj.isNull("url") ? null : feedObj
+                String feedCell = feedObj.isNull("url") ? null : feedObj
                         .getString("url");
-                item.setUrl(feedUrl);
+                item.setCell(feedCell);
 
                 feedItemList.add(item);
             }

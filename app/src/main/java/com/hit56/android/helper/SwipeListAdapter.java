@@ -1,17 +1,21 @@
 package com.hit56.android.helper;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -94,11 +98,10 @@ public class SwipeListAdapter extends BaseAdapter {
             statusMsg.setVisibility(View.GONE);
         }
 
-        // Checking for null feed url
-        if (item.getUrl() != null) {
-//            url.setText(Html.fromHtml("<a href=\"" + item.getUrl() + "\">" + item.getUrl() + "</a> "));
-            url.setText(item.getUrl());
-            // Making url clickable
+        // Checking for null feed cell
+        if (item.getCell() != null) {
+            url.setText(Html.fromHtml("<a href=\"" + item.getCell() + "\">" + item.getCell() + "</a> "));
+            // Making cell clickable
             url.setVisibility(View.VISIBLE);
 
             // add PhoneStateListener
@@ -107,19 +110,49 @@ public class SwipeListAdapter extends BaseAdapter {
                     .getSystemService(Context.TELEPHONY_SERVICE);
             telephonyManager.listen(phoneListener,
                     PhoneStateListener.LISTEN_CALL_STATE);
+            if(url.getText().toString().contains("www")){
+                url.setOnClickListener(new View.OnClickListener() {
 
+                    public void onClick(View v) {
+                        Uri uri = Uri.parse(url.getText().toString());
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        activity.startActivity(intent);
+                    }
+                });
+            } else {
+                // add cell listener
+                url.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        Context context = activity.getApplicationContext();
+                        if (context != null) {
+                            AlertDialog dialog = new AlertDialog.Builder(context)
+                                    .setTitle("提示")
+                                    .setMessage("确认拨打电话: " + url.getText().toString()+"?")
+                                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                            callIntent.setData(Uri.parse("tel:" + url.getText().toString()));
+                                            activity.startActivity(callIntent);
+                                        }
+                                    })
+                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
-            // add url listener
-            url.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + url.getText().toString()));
-                    activity.startActivity(callIntent);
-                }
-            });
+                                        }
+                                    })
+                                    .setCancelable(false)
+                                    .create();
+                            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                            dialog.show();
+                        }
+                    }
+                });
+            }
         } else {
-            // url is null, remove from the view
+            // cell is null, remove from the view
             url.setVisibility(View.GONE);
         }
 
