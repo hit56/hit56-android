@@ -26,6 +26,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -33,6 +35,7 @@ import java.util.List;
  */
 public class BaseHit56Activity extends AppCompatActivity
         implements SwipyRefreshLayout.OnRefreshListener {
+    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private final String URL_PREIFX = "http://www.hit56.com:8083/getinfo/" + MainActivity.IMEI;
 //    private final String URL_PREIFX = "127.0.0.1:8083/getinfo/" + MainActivity.IMEI;
     private String TAG = BaseHit56Activity.class.getSimpleName();
@@ -188,14 +191,21 @@ public class BaseHit56Activity extends AppCompatActivity
                 item.setImge(image);
                 item.setStatus(feedObj.getString("detail"));
                 item.setProfilePic(feedObj.getString("profilePic"));
-                item.setTimeStamp(feedObj.getString("time"));
+                long ts = 0;
+                try {
+                    ts = BaseHit56Activity.DATE_FORMAT.parse(feedObj.getString("time")).getTime();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                item.setTimeStamp(String.valueOf(ts));
+
 
                 //update min_offset and max_offset
-                if(Long.parseLong(feedObj.getString("time")) > max_offSet){
-                    max_offSet = Long.parseLong(feedObj.getString("time"));
+                if(ts > max_offSet){
+                    max_offSet = ts;
                 }
-                if(Long.parseLong(feedObj.getString("time")) < min_offSet){
-                    min_offSet = Long.parseLong(feedObj.getString("time"));
+                if(ts < min_offSet){
+                    min_offSet = ts;
                 }
 
                 // url might be null sometimes

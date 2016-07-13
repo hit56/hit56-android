@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.hit56.android.R;
+import com.hit56.android.activity.BaseHit56Activity;
 import com.hit56.android.activity.MainActivity;
 import com.hit56.android.app.AppController;
 import com.hit56.android.helper.FeedItem;
@@ -31,6 +32,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -207,14 +209,20 @@ public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefre
                 item.setImge(image);
                 item.setStatus(feedObj.getString("detail"));
                 item.setProfilePic(feedObj.getString("profilePic"));
-                item.setTimeStamp(feedObj.getString("time"));
+                long ts = 0;
+                try {
+                    ts = BaseHit56Activity.DATE_FORMAT.parse(feedObj.getString("time")).getTime();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                item.setTimeStamp(String.valueOf(ts));
 
                 //update min_offset and max_offset
-                if(Long.parseLong(feedObj.getString("time")) > max_offSet){
-                    max_offSet = Long.parseLong(feedObj.getString("time"));
+                if(ts > max_offSet){
+                    max_offSet = ts;
                 }
-                if(Long.parseLong(feedObj.getString("time")) < min_offSet){
-                    min_offSet = Long.parseLong(feedObj.getString("time"));
+                if(ts < min_offSet){
+                    min_offSet = ts;
                 }
 
                 // url might be null sometimes
