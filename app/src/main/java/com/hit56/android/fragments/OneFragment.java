@@ -89,6 +89,16 @@ public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefre
         return rootView;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (swipeRefreshLayout!=null) {
+            swipeRefreshLayout.setRefreshing(false);
+            swipeRefreshLayout.destroyDrawingCache();
+            swipeRefreshLayout.clearAnimation();
+        }
+    }
+
     /**
      * This method is called when swipe refresh is pulled down
      */

@@ -28,6 +28,7 @@ import android.view.WindowManager;
 import com.hit56.android.GPSTracker;
 import com.hit56.android.R;
 import com.hit56.android.fragments.OneFragment;
+import com.hit56.android.fragments.ThreeFragment;
 import com.hit56.android.fragments.TwoFragment;
 
 import org.natuan.androidupdaterlibrary.UpdateFormat;
@@ -76,14 +77,14 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+//        setupTabIcons();
 
 //        getAllAppPermissions(this.getApplicationContext());
         onCheckUpdateClick(false);
@@ -93,14 +94,14 @@ public class MainActivity extends AppCompatActivity {
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-//        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new OneFragment(), "货源");
         adapter.addFrag(new TwoFragment(), "车源");
-//        adapter.addFrag(new ThreeFragment(), "我的");
+        adapter.addFrag(new ThreeFragment(), "我的");
         viewPager.setAdapter(adapter);
     }
 

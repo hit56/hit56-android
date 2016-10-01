@@ -1,17 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipyrefreshlayout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    app:direction="both"
-    style="@style/AppTheme">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ListView
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/swipyrefreshlayout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView">
-    </ListView>
+        android:layout_height="fill_parent"
+        app:direction="both"
+        style="@style/AppTheme">
 
-</com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView">
+        </ListView>
+
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+</FrameLayout>
+
