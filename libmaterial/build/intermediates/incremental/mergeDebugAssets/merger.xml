@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/zhenghong/work/java_work_space/hit56-android/libmaterial/src/main/assets"/><source path="/Users/zhenghong/work/java_work_space/hit56-android/libmaterial/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/zhenghong/work/java_work_space/hit56-android/libmaterial/src/debug/assets"/></dataSet></merger>
