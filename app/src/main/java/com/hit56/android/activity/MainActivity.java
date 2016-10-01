@@ -27,6 +27,7 @@ import android.view.WindowManager;
 
 import com.hit56.android.GPSTracker;
 import com.hit56.android.R;
+import com.hit56.android.fragments.LoginFragment;
 import com.hit56.android.fragments.OneFragment;
 import com.hit56.android.fragments.ThreeFragment;
 import com.hit56.android.fragments.TwoFragment;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(2);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new OneFragment(), "货源");
         adapter.addFrag(new TwoFragment(), "车源");
-        adapter.addFrag(new ThreeFragment(), "我的");
+        adapter.addFrag(new LoginFragment(), "我的");
         viewPager.setAdapter(adapter);
     }
 
