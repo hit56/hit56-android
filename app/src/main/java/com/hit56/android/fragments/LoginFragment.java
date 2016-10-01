@@ -7,10 +7,12 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.hit56.android.R;
+import com.hit56.android.widget.RLView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 /**
@@ -30,16 +32,25 @@ public class LoginFragment extends Fragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         initView(view);
         super.onViewCreated(view, savedInstanceState);
+
     }
 
     /**
      *  绑定登录界面的组件
      * */
     private void initView(View view){
-        MaterialEditText user_edt = (MaterialEditText) view.findViewById(R.id.login_user);
-        MaterialEditText password_edt = (MaterialEditText) view.findViewById(R.id.login_password);
-        CheckBox rem_password = (CheckBox) view.findViewById(R.id.login_checkbox);
-        AppCompatButton login_bt = (AppCompatButton) view.findViewById(R.id.login_button);
+        Button loginBt = (Button) view.findViewById(R.id.me_login_buton);
+        RLView focus = (RLView) view.findViewById(R.id.me_focus);
+        RLView sent = (RLView) view.findViewById(R.id.me_sent);
+        RLView message = (RLView) view.findViewById(R.id.me_message);
+
+        loginBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 }

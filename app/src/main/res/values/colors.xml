@@ -16,4 +16,6 @@
     <color name="timestamp">#a0a3a7</color>
 
     <color name="cyan_500">#00bcd4</color>
+
+    <color name="view_press">#E1DFDF</color> <!-- view按下颜色 -->
 </resources>
