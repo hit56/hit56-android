@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
+
+
+
+<RelativeLayout android:id="@+id/login_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_below="@+id/toolbar"
+    android:layout_marginTop="10dp">
+
+    <com.hit56.android.widget.ClearEditText android:id="@+id/login_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:hint="请输入账号"/>
+
+    <com.hit56.android.widget.ClearEditText android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_username"
+        android:paddingLeft="40dp"
+        android:hint="密码"
+        />
+
+    <ImageView android:id="@+id/login_username_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/icon_me_photo"
+        android:layout_alignBottom="@id/login_username"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="6dp"/>
+
+    <ImageView android:id="@+id/login_password_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_me_photo"
+            android:layout_alignBottom="@id/login_password"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="6dp"/>
+
+</RelativeLayout>
+
+    <Button android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@id/login_layout"
+        android:text="立即登录"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/white"
+        android:background="?attr/colorPrimary"/>
+
+
+
+</RelativeLayout>
