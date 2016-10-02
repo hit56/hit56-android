@@ -1,5 +1,6 @@
 package com.hit56.android.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.hit56.android.R;
+import com.hit56.android.activity.LoginActivity;
 import com.hit56.android.widget.RLView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -43,11 +45,12 @@ public class LoginFragment extends Fragment{
         RLView focus = (RLView) view.findViewById(R.id.me_focus);
         RLView sent = (RLView) view.findViewById(R.id.me_sent);
         RLView message = (RLView) view.findViewById(R.id.me_message);
-
+        final Intent intent = new Intent(getActivity(), LoginActivity.class);
         loginBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "", Toast.LENGTH_LONG).show();
+
+                startActivity(intent);
             }
         });
 
