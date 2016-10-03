@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -16,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hit56.android.R;
 import com.hit56.android.utils.CoreUtil;
 import com.hit56.android.utils.L;
+import com.hit56.android.utils.TextUtil;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -50,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         registerBt = (Button) findViewById(R.id.login_button);
         loginBt = (Button) findViewById(R.id.register_button);
         loginBt.setVisibility(View.INVISIBLE);
@@ -86,6 +87,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         String userName = userNameEt.getText().toString();
         String userPassword = userPasswordEt.getText().toString();
+
+        if (TextUtil.stringIsNull(userName)){
+            userNameEt.setError("请输入用户名");
+            return;
+        }
+
+        if (TextUtil.stringIsNull(userPassword)){
+            userPasswordEt.setError("请输入密码");
+            return;
+        }
+
+
         L.e(userName);
         L.e(userPassword);
         String url = "http://www.hit56.com:8083/getinfo/register";
@@ -159,7 +172,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     finish();
 
                 }else {
-                    Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "用户已存在", Toast.LENGTH_LONG).show();
+                    userNameEt.setError("用户已存在");
                 }
             }
         }.execute(url);
