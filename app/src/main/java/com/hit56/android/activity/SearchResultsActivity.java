@@ -103,7 +103,7 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 //				this.finish();
 //				return true;
 //			default:
-//				return super.onOptionsItemSelected(item);
+//	 			return super.onOptionsItemSelected(item);
 //		}
 //
 //	}
