@@ -24,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.hit56.android.GPSTracker;
 import com.hit56.android.R;
@@ -273,5 +274,25 @@ public class MainActivity extends AppCompatActivity {
     public static boolean checkPermission(Context context, String permission) {
         PackageManager pm = context.getPackageManager();
         return PackageManager.PERMISSION_GRANTED ==  pm.checkPermission(permission, context.getPackageName());
+    }
+
+    private long lastTime;
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastTime > 2000){
+            Toast.makeText(MainActivity.this, "再按一次退出程序",Toast.LENGTH_LONG).show();
+            lastTime = currentTime;
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
     }
 }
