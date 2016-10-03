@@ -277,12 +277,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private long lastTime;
-
+    private Toast mToast;
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastTime > 2000){
-            Toast.makeText(MainActivity.this, "再按一次退出程序",Toast.LENGTH_LONG).show();
+            mToast = Toast.makeText(MainActivity.this, "再按一次退出程序",Toast.LENGTH_LONG);
+            mToast.show();
             lastTime = currentTime;
         }else{
             super.onBackPressed();
@@ -292,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-
+        mToast.cancel();
         super.onDestroy();
     }
 }

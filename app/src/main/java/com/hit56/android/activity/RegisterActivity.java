@@ -39,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button registerBt,loginBt;
     private EditText userNameEt;
     private EditText userPasswordEt;
+    private Toast mToast;
+    private boolean isFlag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,8 +68,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login_button://注册
-                L.e("zhuce");
-                judge();
+                    L.e("zhuce");
+                    judge();
                 break;
 
         }
@@ -106,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void register(final String userName, final String userPassword, String url) {
+    private void register(final String userName, final String userPassword, final String url) {
 
 
         new AsyncTask<String, Void, Boolean >(){
@@ -167,12 +169,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             protected void onPostExecute(Boolean aBoolean) {
 
+                if (mToast == null){
+                    mToast = Toast.makeText(RegisterActivity.this, "", Toast.LENGTH_LONG);
+                }
                 if (aBoolean){
-                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+                    mToast.setText("注册成功");
+                    mToast.show();
                     finish();
 
                 }else {
-                    Toast.makeText(RegisterActivity.this, "用户已存在", Toast.LENGTH_LONG).show();
+                    mToast.setText("用户已存在");
+                    mToast.show();
+                    userNameEt.setFocusable(true);
                     userNameEt.setError("用户已存在");
                 }
             }
@@ -181,5 +189,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        mToast.cancel();
+        super.onDestroy();
+    }
 }
