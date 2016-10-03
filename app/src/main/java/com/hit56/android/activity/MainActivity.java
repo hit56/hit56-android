@@ -30,7 +30,6 @@ import com.hit56.android.GPSTracker;
 import com.hit56.android.R;
 import com.hit56.android.fragments.LoginFragment;
 import com.hit56.android.fragments.OneFragment;
-import com.hit56.android.fragments.ThreeFragment;
 import com.hit56.android.fragments.TwoFragment;
 
 import org.natuan.androidupdaterlibrary.UpdateFormat;
@@ -157,17 +156,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void onCheckUpdateClick(boolean user_initiative_click) {
         UpdateManager manager = new UpdateManager(this);
-        UpdateOptions options =null;
-        if(user_initiative_click){
-            options= new UpdateOptions.Builder(this)
-                    .checkUrl("http://www.hit56.com:8083/getinfo/"+MainActivity.IMEI+"/true")
+        UpdateOptions options = null;
+        if (user_initiative_click) {
+            options = new UpdateOptions.Builder(this)
+                    .checkUrl("http://www.hit56.com:8083/getinfo/" + MainActivity.IMEI + "/true")
                     .updateFormat(UpdateFormat.JSON)
                     .updatePeriod(new UpdatePeriod(UpdatePeriod.EACH_TIME))
                     .checkPackageName(true)
                     .build();
         } else {
-            options= new UpdateOptions.Builder(this)
-                    .checkUrl("http://www.hit56.com:8083/getinfo/"+MainActivity.IMEI+"/false")
+            options = new UpdateOptions.Builder(this)
+                    .checkUrl("http://www.hit56.com:8083/getinfo/" + MainActivity.IMEI + "/false")
                     .updateFormat(UpdateFormat.JSON)
                     .updatePeriod(new UpdatePeriod(UpdatePeriod.EACH_TIME))
                     .checkPackageName(true)
@@ -239,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("没有权限");
                         AlertDialog dialog = new AlertDialog.Builder(context)
                                 .setTitle("提示")
-                                .setMessage("请添加权限："+permission)
+                                .setMessage("请添加权限：" + permission)
                                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -273,19 +272,20 @@ public class MainActivity extends AppCompatActivity {
      */
     public static boolean checkPermission(Context context, String permission) {
         PackageManager pm = context.getPackageManager();
-        return PackageManager.PERMISSION_GRANTED ==  pm.checkPermission(permission, context.getPackageName());
+        return PackageManager.PERMISSION_GRANTED == pm.checkPermission(permission, context.getPackageName());
     }
 
     private long lastTime;
     private Toast mToast;
+
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
-        if (currentTime - lastTime > 2000){
-            mToast = Toast.makeText(MainActivity.this, "再按一次退出程序",Toast.LENGTH_LONG);
+        if (currentTime - lastTime > 2000) {
+            mToast = Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_LONG);
             mToast.show();
             lastTime = currentTime;
-        }else{
+        } else {
             super.onBackPressed();
         }
 
