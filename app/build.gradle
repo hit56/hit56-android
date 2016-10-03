@@ -25,6 +25,7 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.17'
 
     compile project(':librefresh')
     compile project(':libmaterial')

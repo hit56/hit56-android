@@ -54,6 +54,7 @@
             android:name=".activity.BaseHit56Activity"
             android:label="@string/app_name"></activity>
         <activity android:name=".activity.LoginActivity"/>
+        <activity android:name=".activity.RegisterActivity"/>
 
     </application>
 
