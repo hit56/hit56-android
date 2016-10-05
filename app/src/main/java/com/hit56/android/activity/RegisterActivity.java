@@ -12,154 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import com.alibaba.fastjson.JSONObject;
 import com.hit56.android.R;
+import com.hit56.android.app.AppController;
+import com.hit56.android.bean.RegisterResultBean;
 import com.hit56.android.utils.CoreUtil;
 import com.hit56.android.utils.L;
 import com.hit56.android.utils.TextUtil;
@@ -197,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void initView(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("注册");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         registerBt = (Button) findViewById(R.id.login_button);
@@ -235,8 +92,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String userName = userNameEt.getText().toString();
         String userPassword = userPasswordEt.getText().toString();
 
-        if (TextUtil.stringIsNull(userName)){
-            userNameEt.setError("请输入用户名");
+        if (TextUtil.stringIsNull(userName) || (userName.length() != 11)){
+            L.e(userName.length());
+            userNameEt.setError("请输入11位电话号码");
+            if (mToast == null){
+                mToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
+            }
+            mToast.setText("请输入11位电话号码");
+            mToast.show();
             return;
         }
 
@@ -256,13 +119,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void register(final String userName, final String userPassword, final String url) {
 
 
-        new AsyncTask<String, Void, Boolean >(){
+        new AsyncTask<String, Void, RegisterResultBean>(){
 
 
             @Override
-            protected Boolean doInBackground(String... params) {
+            protected RegisterResultBean doInBackground(String... params) {
 
-                Boolean isSuccess = false;
+                RegisterResultBean mResult = null;
                 try {
                     String url = params[0];
                     DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -288,11 +151,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             (response.getEntity().getContent())));
 
                     String output;
+                    mResult = new RegisterResultBean();
 //			System.out.println("Output from Server .... \n");
                     while ((output = br.readLine()) != null) {
                         System.out.println(output);
                         JSONObject result = JSON.parseObject(output);
-                        isSuccess = result.getBoolean("success");
+                        L.e(result.toString());
+                        boolean isSuccess = result.getBoolean("success");
+                        String imageUrl = result.getString("profilePic");
+                        String info = result.getString("info");
+                        String cell = result.getString("cell");
+                        mResult.setCell(cell);
+                        mResult.setRegister(isSuccess);
+                        mResult.setImageUrl(imageUrl);
+                        mResult.setInfo(info);
+
                     }
 
                     httpClient.getConnectionManager().shutdown();
@@ -306,29 +179,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 }
 
-                return isSuccess;
+                return mResult;
 
             }
 
-
             @Override
-            protected void onPostExecute(Boolean aBoolean) {
+            protected void onPostExecute(RegisterResultBean registerResultBean) {
 
+                if (registerResultBean == null){
+                   return;
+                }
+                String info = registerResultBean.getInfo();
                 if (mToast == null){
                     mToast = Toast.makeText(RegisterActivity.this, "", Toast.LENGTH_LONG);
                 }
-                if (aBoolean){
+                if (registerResultBean.isRegister()){
                     mToast.setText("注册成功");
                     mToast.show();
-                    finish();
-
+                    AppController appController= AppController.getInstance();
+                    appController.saveUserData(registerResultBean);
+                    L.e(registerResultBean.getImageUrl());
+                    CoreUtil.finishActivityList();
                 }else {
-                    mToast.setText("用户已存在");
+
+                    mToast.setText(info);
                     mToast.show();
                     userNameEt.setFocusable(true);
-                    userNameEt.setError("用户已存在");
+                    userNameEt.setError(info);
                 }
             }
+
         }.execute(url);
 
 
@@ -336,7 +216,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onDestroy() {
-        mToast.cancel();
+        if (mToast != null){
+            mToast.cancel();
+        }
         super.onDestroy();
     }
 }

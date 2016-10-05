@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingRight="20dp"
+              android:paddingBottom="10dp">
+    
+    <com.hit56.android.widget.RoundImageView android:id="@+id/item_head"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/head_nor"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"/>
+    
+    <TextView android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/item_head"
+        android:layout_alignTop="@id/item_head"
+        android:layout_marginLeft="10dp"      
+        android:text="name"/>
+
+    <TextView android:id="@+id/item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_name"
+        android:layout_alignLeft="@id/item_name"
+        android:layout_marginTop="5dp"      
+        android:text="time"/>
+
+    <TextView android:id="@+id/item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_date"
+        android:layout_alignLeft="@id/item_name"
+        android:layout_marginTop="5dp" 
+        android:maxLines="5"      
+        android:text="今天天气也不错啊好 还好哦啊好hi啊 啊哈哈还啊"/>
+
+    <TextView android:id="@+id/item_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="99+"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@mipmap/icon_me_photo"
+        android:drawablePadding="3dp"/>
+
+    <TextView android:id="@+id/item_transfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/item_message"
+        android:layout_marginRight="30dp"
+        android:drawableLeft="@mipmap/icon_me_photo"
+        android:drawablePadding="3dp"/>
+
+    <TextView android:id="@+id/item_praise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/item_transfer"
+        android:layout_marginRight="30dp"
+        android:drawableLeft="@mipmap/icon_me_photo"
+        android:drawablePadding="3dp"/>
+
+</RelativeLayout>

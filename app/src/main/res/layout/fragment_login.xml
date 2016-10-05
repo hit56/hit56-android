@@ -100,6 +100,22 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
+        <com.hit56.android.widget.RLView android:id="@+id/me_logout"
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:drawableLeft="@mipmap/icon_me_photo"
+             android:drawableRight="@mipmap/right"
+             android:text="退出登录"
+             android:padding="5dp"
+             android:drawablePadding="10dp"
+             android:gravity="center_vertical"
+             android:background="@drawable/all_statuspress_view"
+             android:clickable="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
     </LinearLayout>
 
 
