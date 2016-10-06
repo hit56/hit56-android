@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        item.setIcon(R.mipmap.icon_me_photo);
         if (id == R.id.menu_search) {
             //新建一个Intent
             Intent intent = new Intent();

@@ -135,7 +135,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()){
             case R.id.me_focus://我的关注
                 break;
