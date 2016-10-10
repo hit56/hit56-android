@@ -133,18 +133,45 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
 
+
     @Override
     public void onClick(View v) {
+        AppController appController = AppController.getInstance();
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        Bundle bundle = new Bundle();
+        boolean isLogin = appController.isLogin();
         switch (v.getId()){
             case R.id.me_focus://我的关注
+                if (isLogin){
+
+                }else {
+                    bundle.putString("from","from_focus");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
                 break;
             case R.id.me_sent://我的发布
+
+                if (isLogin){
+
+                }else {
+                    startActivity(intent);
+                }
                 break;
             case R.id.me_message://我的消息
+
+                if (isLogin){
+
+                }else {
+                    startActivity(intent);
+                }
                 break;
             case R.id.me_logout://退出
-                AppController appController = AppController.getInstance();
-                appController.deleteUserData();
+                if (isLogin){
+                    appController.deleteUserData();
+                }
+                break;
+            default:
                 break;
 
         }
