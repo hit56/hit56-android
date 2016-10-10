@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.hit56.android.R;
 import com.hit56.android.activity.LoginActivity;
+import com.hit56.android.activity.ReleaseActivity;
 import com.hit56.android.app.AppController;
 import com.hit56.android.bean.RegisterResultBean;
 import com.hit56.android.constants.IntentConstants;
@@ -145,6 +146,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 if (isLogin){
 
                 }else {
+
                     bundle.putString("from","from_focus");
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -153,6 +155,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             case R.id.me_sent://我的发布
 
                 if (isLogin){
+                    intent = new Intent(getActivity(), ReleaseActivity.class);
+                    startActivity(intent);
 
                 }else {
                     startActivity(intent);
@@ -163,7 +167,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 if (isLogin){
 
                 }else {
-                    startActivity(intent);
+
                 }
                 break;
             case R.id.me_logout://退出

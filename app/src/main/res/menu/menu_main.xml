@@ -25,4 +25,8 @@
         android:title="@string/action_update"
         android:orderInCategory="2"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_release"
+        android:title="发布"
+        app:showAsAction="never"/>
 </menu>

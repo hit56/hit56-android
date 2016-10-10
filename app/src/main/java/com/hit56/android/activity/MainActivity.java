@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.hit56.android.GPSTracker;
 import com.hit56.android.R;
+import com.hit56.android.app.AppController;
 import com.hit56.android.fragments.LoginFragment;
 import com.hit56.android.fragments.OneFragment;
 import com.hit56.android.fragments.ThreeFragment;
@@ -185,17 +186,36 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.menu_goto_search) {
-            //新建一个Intent
-            Intent intent = new Intent();
-            //制定intent要启动的类
-            intent.setClass(MainActivity.this, SearchResultsActivity.class);
-            //启动一个新的Activity
-            startActivity(intent);
-            //关闭当前的
-//            MainActivity.this.finish();
-        } else if (id == R.id.action_update) {
-            onCheckUpdateClick(true);
+
+
+        switch (id){
+            case R.id.menu_search://搜索
+                Intent intent = new Intent();
+                //制定intent要启动的类
+                intent.setClass(MainActivity.this, SearchResultsActivity.class);
+                //启动一个新的Activity
+                startActivity(intent);
+                //关闭当前的
+                break;
+
+            case R.id.action_update://检查更新
+                onCheckUpdateClick(true);
+                break;
+
+            case R.id.action_release://发布
+                AppController appController = AppController.getInstance();
+                boolean isLogin = appController.isLogin();
+                Intent intent1;
+                if (isLogin){
+                    intent1 = new Intent(MainActivity.this, ReleaseActivity.class);
+
+                }else {
+                    intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                }
+
+                startActivity(intent1);
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);

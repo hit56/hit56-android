@@ -18,4 +18,6 @@
     <color name="cyan_500">#00bcd4</color>
 
     <color name="view_press">#E1DFDF</color> <!-- view按下颜色 -->
+    <color name="pressed">#2c4398</color><!--按钮按下-->
+    <color name="unpressed">#2c4388</color><!--按钮正常-->
 </resources>
