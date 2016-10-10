@@ -1,7 +1,6 @@
 package com.hit56.android.activity;
 
 import android.app.SearchManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,28 +14,29 @@ import android.widget.ListView;
 
 import com.hit56.android.R;
 import com.hit56.android.helper.SwipeListAdapter;
+import com.hit56.android.utils.L;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 
 import java.util.ArrayList;
 
-public class SearchResultsActivity  extends BaseHit56Activity {
+public class SearchResultsActivity  extends BaseHit56Activity{
 
-//	private TextView txtQuery;
+	//private TextView txtQuery;
+	private String searchText = "北京";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
+		initView();
+	}
 
-		// get the action bar
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		handleIntent(getIntent());
-
+	@Override
+	protected void onResume() {
+		L.e("onresume");
 		super.use_gps = false;
-		super.query = getIntent().getStringExtra(SearchManager.QUERY);
+		//super.query = getIntent().getStringExtra(SearchManager.QUERY);
+		super.query = searchText;
 		super.listView = (ListView) findViewById(R.id.listView);
 		super.swipeRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.swipyrefreshlayout);
 		super.feedItemList = new ArrayList<>();
@@ -47,7 +47,7 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 		/**
 		 * Showing Swipe Refresh animation on activity create
 		 * As animation won't start on onCreate, post runnable is used
-		 */
+		 * */
 		super.swipeRefreshLayout.post(new Runnable() {
 			@Override
 			public void run() {
@@ -55,12 +55,27 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 				fetchFeedItems("top");
 			}
 		});
+		super.onResume();
+	}
+
+	private void initView(){
+		// get the action bar
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayShowTitleEnabled(false);//隐藏标题
+
 	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
-		setIntent(intent);
-		handleIntent(intent);
+		L.e("getIntent");
+		if (intent != null){
+			setIntent(intent);
+			handleIntent(intent);
+			searchText = intent.getStringExtra(SearchManager.QUERY);
+		}
+
 	}
 
 	/**
@@ -74,7 +89,7 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 		 * For now we just display the query only
 		 */
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-			String searchText = intent.getStringExtra(SearchManager.QUERY);
+			//String searchText = intent.getStringExtra(SearchManager.QUERY);
 
 		}
 
@@ -85,26 +100,30 @@ public class SearchResultsActivity  extends BaseHit56Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.menu_main, menu);
+		menuInflater.inflate(R.menu.menu_search, menu);
 
 		// Associate searchable configuration with the SearchView
 		MenuItem searchItem = menu.findItem(R.id.menu_search);
 		SearchManager searchManager = (SearchManager) SearchResultsActivity.this.getSystemService(Context.SEARCH_SERVICE);
 		SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-		searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(getApplicationContext(), SearchResultsActivity.class)));
-
+		searchView.setQueryHint("搜索");
+		searchView.setSubmitButtonEnabled(true);//提交button可见
+		searchView.onActionViewExpanded();//展开searchView
+		searchView.setIconifiedByDefault(true);
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 		return super.onCreateOptionsMenu(menu);
 	}
-//
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		switch (item.getItemId()) {
-//			case android.R.id.home:
-//				this.finish();
-//				return true;
-//			default:
-//	 			return super.onOptionsItemSelected(item);
-//		}
-//
-//	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				this.finish();
+				return true;
+			default:
+	 			return super.onOptionsItemSelected(item);
+		}
+
+	}
+
 }

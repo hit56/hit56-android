@@ -1,10 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".MainActivity"
 android:orientation="vertical">
-<include layout="@layout/toolbar" android:id="@+id/toolbar"/>
+    <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
+    <!--<android.support.v7.widget.SearchView android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/toolbar"
+        android:paddingLeft="40dp"
+        android:layout_marginBottom="5dp"
+        />-->
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,14 +19,15 @@ android:orientation="vertical">
         tools:context=".MainActivity"
         android:orientation="vertical"
         android:id="@+id/swipyrefreshlayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
 
         <ListView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listView">
         </ListView>
 
     </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
-</LinearLayout>
+</RelativeLayout>

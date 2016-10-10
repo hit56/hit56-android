@@ -146,12 +146,12 @@ public class MainActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu_main, menu);
 
         // Associate searchable configuration with the SearchView
-        MenuItem searchItem = menu.findItem(R.id.menu_search);
+      /*  MenuItem searchItem = menu.findItem(R.id.menu_search);
         SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
 
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(getApplicationContext(),
-                SearchResultsActivity.class)));
+                SearchResultsActivity.class)));*/
 
 
         return super.onCreateOptionsMenu(menu);
@@ -185,8 +185,7 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        item.setIcon(R.mipmap.icon_me_photo);
-        if (id == R.id.menu_search) {
+        if (id == R.id.menu_goto_search) {
             //新建一个Intent
             Intent intent = new Intent();
             //制定intent要启动的类
@@ -291,13 +290,6 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        L.e("--------------------");
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
