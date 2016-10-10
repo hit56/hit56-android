@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_release"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hit56.android.activity.ReleaseActivity">
+
+    <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
+
+
+    <ScrollView android:id="@+id/release_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:minLines="10"
+            android:maxLines="10"
+            android:text="wwwwwwwwwwwwwww"/>
+
+    </ScrollView>
+    <Button android:id="@+id/release_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_layout"
+            android:text="确定发布"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/white"
+            android:background="@drawable/d_button"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
