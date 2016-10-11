@@ -301,6 +301,8 @@ public class MainActivity extends AppCompatActivity {
 
     private long lastTime;
     private Toast mToast;
+
+    //测试github分支
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
@@ -310,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
             lastTime = currentTime;
         }else{
             super.onBackPressed();
-            
+
         }
 
     }
