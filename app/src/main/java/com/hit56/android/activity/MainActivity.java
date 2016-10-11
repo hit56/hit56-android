@@ -310,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
             lastTime = currentTime;
         }else{
             super.onBackPressed();
+            
         }
 
     }
