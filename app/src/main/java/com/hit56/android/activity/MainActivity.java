@@ -186,16 +186,16 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Intent intent;
 
         switch (id){
-            case R.id.menu_search://搜索
-                Intent intent = new Intent();
+            case R.id.menu_goto_search://搜索
+              intent = new Intent();
                 //制定intent要启动的类
                 intent.setClass(MainActivity.this, SearchResultsActivity.class);
                 //启动一个新的Activity
                 startActivity(intent);
-                //关闭当前的
+                L.e("搜索");
                 break;
 
             case R.id.action_update://检查更新
@@ -205,15 +205,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_release://发布
                 AppController appController = AppController.getInstance();
                 boolean isLogin = appController.isLogin();
-                Intent intent1;
+
                 if (isLogin){
-                    intent1 = new Intent(MainActivity.this, ReleaseActivity.class);
+                    intent = new Intent(MainActivity.this, ReleaseActivity.class);
 
                 }else {
-                    intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                    intent = new Intent(MainActivity.this, LoginActivity.class);
                 }
 
-                startActivity(intent1);
+                startActivity(intent);
+                break;
+            default:
                 break;
 
         }

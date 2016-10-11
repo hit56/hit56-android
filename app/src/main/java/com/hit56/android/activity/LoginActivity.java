@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hit56.android.R;
 import com.hit56.android.app.AppController;
 import com.hit56.android.bean.RegisterResultBean;
+import com.hit56.android.constants.FileData;
 import com.hit56.android.constants.IntentConstants;
 import com.hit56.android.utils.CoreUtil;
 import com.hit56.android.utils.FileLocalCache;
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText userNameEt;
     private EditText userPasswordEt;
     private Toast mToast;
+    private String from;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         CoreUtil.addToActivityList(this);
         initView();
         L.e("登录界面");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            from = bundle.getString(FileData.FROM);
+            L.e(from);
+        }
 
 
     }
@@ -59,11 +66,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         toolbar.setTitle("登录");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         loginBt = (Button) findViewById(R.id.login_button);
         registerBt = (Button) findViewById(R.id.register_button);
-
         loginBt.setOnClickListener(this);
         registerBt.setOnClickListener(this);
         userNameEt = (EditText) findViewById(R.id.login_username);

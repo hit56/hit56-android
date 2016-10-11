@@ -21,8 +21,10 @@ import com.android.volley.toolbox.ImageRequest;
 import com.hit56.android.R;
 import com.hit56.android.activity.LoginActivity;
 import com.hit56.android.activity.ReleaseActivity;
+import com.hit56.android.activity.ReleaseMessageActivity;
 import com.hit56.android.app.AppController;
 import com.hit56.android.bean.RegisterResultBean;
+import com.hit56.android.constants.FileData;
 import com.hit56.android.constants.IntentConstants;
 import com.hit56.android.utils.L;
 import com.hit56.android.widget.RLView;
@@ -147,7 +149,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
                 }else {
 
-                    bundle.putString("from","from_focus");
+                    bundle = setBundle(bundle, FileData.FROM_FOCUS);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -155,10 +157,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             case R.id.me_sent://我的发布
 
                 if (isLogin){
-                    intent = new Intent(getActivity(), ReleaseActivity.class);
+
+                    intent = new Intent(getActivity(), ReleaseMessageActivity.class);
+
                     startActivity(intent);
 
                 }else {
+                    bundle = setBundle(bundle, FileData.FROM_RELEASE);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
                 break;
@@ -167,7 +173,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 if (isLogin){
 
                 }else {
-
+                    bundle = setBundle(bundle, FileData.FROM_MESSAGE);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
                 break;
             case R.id.me_logout://退出
@@ -180,6 +188,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         }
 
+    }
+
+    private Bundle setBundle(Bundle bundle, String from){
+        bundle.putString("from", from);
+        return bundle;
     }
 
     @Override
