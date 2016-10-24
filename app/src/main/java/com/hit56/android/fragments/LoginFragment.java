@@ -165,7 +165,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 }else {
                     bundle = setBundle(bundle, FileData.FROM_RELEASE);
                     intent.putExtras(bundle);
-                    startActivity(intent);
+                    //startActivity(intent);
+                    startActivityForResult(intent,56);
                 }
                 break;
             case R.id.me_message://我的消息

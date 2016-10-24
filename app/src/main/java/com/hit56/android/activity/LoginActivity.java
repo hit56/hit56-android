@@ -209,6 +209,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     AppController appController = AppController.getInstance();
                     appController.saveUserData(registerResultBean);
                     L.e(registerResultBean.getImageUrl());
+                    setResult(34);
                     CoreUtil.finishActivityList();
                 }else {
 
