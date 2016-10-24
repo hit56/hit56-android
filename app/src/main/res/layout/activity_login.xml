@@ -34,7 +34,7 @@
     <ImageView android:id="@+id/login_username_image"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@mipmap/icon_me_photo"
+        android:src="@mipmap/ic_perm_phone_msg_grey600_48dp"
         android:layout_alignBottom="@id/login_username"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="6dp"/>
@@ -42,7 +42,7 @@
     <ImageView android:id="@+id/login_password_image"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@mipmap/icon_me_photo"
+            android:src="@mipmap/ic_https_grey600_48dp"
             android:layout_alignBottom="@id/login_password"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="6dp"/>

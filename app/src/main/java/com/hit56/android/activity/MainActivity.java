@@ -317,6 +317,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        L.e("请求码:"+requestCode+"结果码:"+requestCode);
+    }
+
     @Override
     protected void onDestroy() {
         if (mToast != null){
