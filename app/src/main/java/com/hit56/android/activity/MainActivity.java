@@ -104,12 +104,14 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
+    //添加第四个fragment
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new OneFragment(), "货源");
         adapter.addFrag(new TwoFragment(), "车源");
         adapter.addFrag(new LoginFragment(), "我的");
         adapter.addFrag(new FourFragment(),"朋友圈");
+
 
         viewPager.setAdapter(adapter);
     }
