@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.hit56.android.GPSTracker;
 import com.hit56.android.R;
 import com.hit56.android.app.AppController;
+import com.hit56.android.fragments.FourFragment;
 import com.hit56.android.fragments.LoginFragment;
 import com.hit56.android.fragments.OneFragment;
 import com.hit56.android.fragments.ThreeFragment;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(3);//设置fragment缓存数量
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFrag(new OneFragment(), "货源");
         adapter.addFrag(new TwoFragment(), "车源");
         adapter.addFrag(new LoginFragment(), "我的");
+        adapter.addFrag(new FourFragment(),"朋友圈");
+
         viewPager.setAdapter(adapter);
     }
 
