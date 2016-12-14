@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.hit56.android.utils.DensityUtil;
 
+
 public class RLView extends TextView{
 
 	public RLView(Context context, AttributeSet attrs) {

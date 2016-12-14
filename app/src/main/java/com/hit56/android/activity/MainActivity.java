@@ -1,8 +1,6 @@
 package com.hit56.android.activity;
 
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,10 +11,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
@@ -32,7 +28,6 @@ import com.hit56.android.app.AppController;
 import com.hit56.android.fragments.FourFragment;
 import com.hit56.android.fragments.LoginFragment;
 import com.hit56.android.fragments.OneFragment;
-import com.hit56.android.fragments.ThreeFragment;
 import com.hit56.android.fragments.TwoFragment;
 import com.hit56.android.utils.L;
 
@@ -109,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new OneFragment(), "货源");
         adapter.addFrag(new TwoFragment(), "车源");
-        adapter.addFrag(new LoginFragment(), "我的");
         adapter.addFrag(new FourFragment(),"朋友圈");
+        adapter.addFrag(new LoginFragment(), "我的");
 
 
         viewPager.setAdapter(adapter);

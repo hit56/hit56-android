@@ -26,7 +26,7 @@ import com.hit56.android.volley.LruBitmapCache;
 public class AppController extends Application {
 
     public static final String TAG = AppController.class.getSimpleName();
-    private Context context;
+    private static Context context;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     LruBitmapCache mLruBitmapCache;
@@ -80,6 +80,10 @@ public class AppController extends Application {
     }
 
 
+    public static Context getContext(){
+        return context;
+
+    }
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         getRequestQueue().add(req);

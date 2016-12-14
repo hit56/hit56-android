@@ -101,7 +101,7 @@ public class DatasUtil {
 
 			item.setFavorters(createFavortItemList());
 			item.setComments(createCommentItemList());
-			int type = getRandomNum(10) % 2;
+			int type = getRandomNum(10) % 3;
 			if (type == 0) {
 				item.setType("1");// 链接
 				item.setLinkImg("http://pics.sc.chinaz.com/Files/pic/icons128/2264/%E8%85%BE%E8%AE%AFQQ%E5%9B%BE%E6%A0%87%E4%B8%8B%E8%BD%BD1.png");
@@ -111,7 +111,8 @@ public class DatasUtil {
 				item.setPhotos(createPhotos());
 			}else {
 				item.setType("3");// 视频
-				String videoUrl = "http://yiwcicledemo.s.qupai.me/v/80c81c19-7c02-4dee-baca-c97d9bbd6607.mp4";
+				String videoUrl = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+//				String videoUrl = "http://yiwcicledemo.s.qupai.me/v/80c81c19-7c02-4dee-baca-c97d9bbd6607.mp4";
                 String videoImgUrl = "http://yiwcicledemo.s.qupai.me/v/80c81c19-7c02-4dee-baca-c97d9bbd6607.jpg";
 				item.setVideoUrl(videoUrl);
                 item.setVideoImgUrl(videoImgUrl);
