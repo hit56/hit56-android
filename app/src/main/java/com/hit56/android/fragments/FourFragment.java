@@ -48,7 +48,6 @@ public class FourFragment extends Fragment implements CircleContract.View{
     private LinearLayout edittextbody;
     private EditText editText;
     private ImageView sendIv;
-    
 
     private int screenHeight;
     private int editTextBodyHeight;
