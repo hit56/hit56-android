@@ -20,6 +20,8 @@ android {
 
 
         useLibrary 'org.apache.http.legacy'
+
+
 }
 
 dependencies {
@@ -30,7 +32,13 @@ dependencies {
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.17'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.1'
-
+    compile 'com.malinskiy:superrecyclerview:1.1.4'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.mikhaellopez:circularprogressbar:1.1.1'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile ('com.github.bumptech.glide:okhttp3-integration:1.4.0'){
+        exclude group: 'glide-parent'
+    }
     compile project(':librefresh')
     compile project(':libmaterial')
     compile project(':libupdater')
