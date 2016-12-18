@@ -82,6 +82,7 @@ public class ThreeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // validate
+                
                 validationEt.validate();
             }
         });
