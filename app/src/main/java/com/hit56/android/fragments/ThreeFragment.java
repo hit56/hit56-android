@@ -83,6 +83,7 @@ public class ThreeFragment extends Fragment {
             public void onClick(View v) {
                 // validate
                 validationEt.validate();
+                
             }
         });
     }
