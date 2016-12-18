@@ -89,9 +89,6 @@ public class FourFragment extends Fragment implements CircleContract.View{
         recyclerView.setLayoutManager(layoutManager);//给recycleView设置线性布局
         recyclerView.addItemDecoration(new DivItemDecoration(2,false));//设置item间的间隔,true时 头和item无间隔
         recyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-
-
-
         circleAdapter = new CircleAdapter(getActivity());
         presenter.loadData(TYPE_PULLREFRESH);
         circleAdapter.setCirclePresenter(presenter);
