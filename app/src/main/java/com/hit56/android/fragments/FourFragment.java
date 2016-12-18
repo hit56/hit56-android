@@ -74,9 +74,6 @@ public class FourFragment extends Fragment implements CircleContract.View{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_four,container,false);
         presenter = new CirclePresenter(this);
-
-
-
         return view;
     }
 
