@@ -138,6 +138,7 @@ public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefre
     private String getCityUrl(String direction) throws UnsupportedEncodingException {
 
         if(direction == "top"){
+
             return URL_PREIFX + "/" + URLEncoder.encode(query, "utf-8") + "/" +  max_offSet + "/" + direction;
         }
         return URL_PREIFX + "/" + URLEncoder.encode(query, "utf-8") + "/" + min_offSet + "/" +  direction;
@@ -149,6 +150,7 @@ public class OneFragment extends Fragment  implements SwipyRefreshLayout.OnRefre
         String url = "";
         if(use_gps == true){
             url = getGpsUrl(direction);
+            Log.d(TAG,"rul:"+url);
         } else {
             try {
                 url = getCityUrl(direction);

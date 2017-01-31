@@ -226,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
     public void setGpsPosition() {
         // create class object
         GPSTracker gps = new GPSTracker(MainActivity.this);
+
         // check if GPS enabled
         if (gps.canGetLocation()) {
 

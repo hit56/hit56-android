@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.hit56.android"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 5
         versionName "20160713"
     }
