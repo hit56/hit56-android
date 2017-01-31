@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -200,13 +201,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
      */
     private void showDialog(final AppController appController){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("是否退出?");
+        builder.setMessage("是否退出登录?");
         builder.setCancelable(false);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 appController.deleteUserData();
+                Toast.makeText(getActivity(), "退出登录", Toast.LENGTH_SHORT).show();
             }
         });
 
