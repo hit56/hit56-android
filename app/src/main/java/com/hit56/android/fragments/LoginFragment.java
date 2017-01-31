@@ -194,6 +194,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * 退出提示
+     * @param appController
+     */
     private void showDialog(final AppController appController){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("是否退出?");
