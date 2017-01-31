@@ -2,12 +2,14 @@ package com.hit56.android.fragments;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -181,7 +183,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.me_logout://退出
                 if (isLogin){
-                    appController.deleteUserData();
+                    showDialog(appController);
+
                 }
                 break;
             default:
@@ -189,6 +192,28 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         }
 
+    }
+
+    private void showDialog(final AppController appController){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("是否退出?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                appController.deleteUserData();
+            }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
     }
 
     private Bundle setBundle(Bundle bundle, String from){
