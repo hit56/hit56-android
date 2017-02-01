@@ -1,5 +1,6 @@
 package com.hit56.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -59,9 +60,22 @@ public class ReleaseActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.release_add_image://添加图片
+                addImage();
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * add Images
+     */
+    private void addImage(){
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

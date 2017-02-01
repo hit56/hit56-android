@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,6 +114,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         final RegisterResultBean registerResultBean = appController.getUserData();
         if (registerResultBean != null){
             String url = registerResultBean.getImageUrl();
+            L.e(url);
             RequestQueue requestQueue = appController.getRequestQueue();
             ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
                 @Override
