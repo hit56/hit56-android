@@ -77,7 +77,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         message.setOnClickListener(this);
         logout.setOnClickListener(this);
         final Intent intent = new Intent(getActivity(), LoginActivity.class);
-        L.e("fragment login");
+        L.e("LoginFragment", "fragment login");
         loginBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +114,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         final RegisterResultBean registerResultBean = appController.getUserData();
         if (registerResultBean != null){
             String url = registerResultBean.getImageUrl();
-            L.e(url);
+            L.e("LoginFragment", url);
             RequestQueue requestQueue = appController.getRequestQueue();
             ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
                 @Override

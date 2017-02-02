@@ -11,6 +11,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.hit56.android.bean.RegisterResultBean;
+import com.hit56.android.bean.User;
 import com.hit56.android.constants.CoreConstants;
 import com.hit56.android.constants.FileData;
 import com.hit56.android.constants.IntentConstants;
@@ -110,7 +111,7 @@ public class AppController extends Application {
             CACHE_DIR_SD = context.getCacheDir().getPath();
         }
         CACHE_DIR_SD += "/";
-        L.e("----SD卡目录---->>>:" +CACHE_DIR_SD);
+        L.e("AppController","----SD卡目录---->>>:" +CACHE_DIR_SD);
         LOG=CACHE_DIR_SD+"cache.log";
         AllLOG=CACHE_DIR_SD+"allcache.log";
         IMAGE_DIR=CACHE_DIR_SD+"image/";
@@ -140,7 +141,7 @@ public class AppController extends Application {
     public void deleteUserData(){
         this.registerResultBean = null;
         FileLocalCache.deleteSerializableData(CoreConstants.CACHE_DIR_SYSTEM, FileData.USER);
-        L.e("移除了用户信息");
+        L.e("AppController","移除了用户信息");
         Intent intent = new Intent(IntentConstants.USER_BROADCAST_RECEIVER);
         Bundle bundle = new Bundle();
         bundle.putInt(IntentConstants.USER_BROADCAST_STYLE, IntentConstants.USER_LOGOUT);

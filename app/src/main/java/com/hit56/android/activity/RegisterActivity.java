@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login_button://注册
-                    L.e("zhuce");
+                    L.e("RegisterActivity", "zhuce");
                     judge();
                 break;
 
@@ -93,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String userPassword = userPasswordEt.getText().toString();
 
         if (TextUtil.stringIsNull(userName) || (userName.length() != 11)){
-            L.e(userName.length());
+            L.e("RegisterActivity", userName.length());
             userNameEt.setError("请输入11位电话号码");
             if (mToast == null){
                 mToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
@@ -109,8 +109,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
 
-        L.e(userName);
-        L.e(userPassword);
+        L.e("RegisterActivity", userName);
+        L.e("RegisterActivity", userPassword);
         String url = "http://www.hit56.com:8083/getinfo/register";
         register(userName, userPassword,url);
 
@@ -156,7 +156,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     while ((output = br.readLine()) != null) {
                         System.out.println(output);
                         JSONObject result = JSON.parseObject(output);
-                        L.e(result.toString());
+                        L.e("RegisterActivity", result.toString());
                         boolean isSuccess = result.getBoolean("success");
                         String imageUrl = result.getString("profilePic");
                         String info = result.getString("info");
@@ -165,6 +165,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         mResult.setRegister(isSuccess);
                         mResult.setImageUrl(imageUrl);
                         mResult.setInfo(info);
+                        mResult.setUserName(userName);
 
                     }
 
@@ -197,8 +198,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     mToast.setText("注册成功");
                     mToast.show();
                     AppController appController= AppController.getInstance();
+                    registerResultBean.setUserName(userName);
                     appController.saveUserData(registerResultBean);
-                    L.e(registerResultBean.getImageUrl());
+                    L.e("RegisterActivity", registerResultBean.getImageUrl());
                     CoreUtil.finishActivityList();
                 }else {
 

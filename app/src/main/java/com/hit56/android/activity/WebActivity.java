@@ -31,9 +31,9 @@ public class WebActivity extends AppCompatActivity {
         initWebView();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            L.e("webVIew  ---------------------");
+            L.e("WebActivity", "webVIew  ---------------------");
             String url = bundle.getString("Url");
-            L.e(url);
+            L.e("WebActivity", url);
             webView.loadUrl(url);
 
         }

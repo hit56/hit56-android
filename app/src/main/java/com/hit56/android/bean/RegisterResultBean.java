@@ -12,6 +12,7 @@ public class RegisterResultBean implements Serializable{
     private String info;
     private String imageUrl;
     private String cell;
+    private String userName;
 
     public String getCell() {
         return cell;
@@ -43,5 +44,13 @@ public class RegisterResultBean implements Serializable{
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

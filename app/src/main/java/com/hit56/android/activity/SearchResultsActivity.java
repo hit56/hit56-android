@@ -33,7 +33,7 @@ public class SearchResultsActivity  extends BaseHit56Activity{
 
 	@Override
 	protected void onResume() {
-		L.e("onresume");
+		L.e("SearchResultsActivity", "onresume");
 		super.use_gps = false;
 		//super.query = getIntent().getStringExtra(SearchManager.QUERY);
 		super.query = searchText;
@@ -69,7 +69,7 @@ public class SearchResultsActivity  extends BaseHit56Activity{
 
 	@Override
 	protected void onNewIntent(Intent intent) {
-		L.e("getIntent");
+		L.e("SearchResultsActivity", "getIntent");
 		if (intent != null){
 			setIntent(intent);
 			handleIntent(intent);

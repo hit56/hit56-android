@@ -39,13 +39,13 @@ public class CoreUtil {
 	 * 关闭activity集合
 	 */
 	public static void finishActivityList(){
-		L.e("activity集合大小-----》》"+list.size());
+		L.e("CoreUtil", "activity集合大小-----》》"+list.size());
 		/*for (FragmentActivity fragmentActivity : list) {
 			L.e("被关闭fragmentActivity-----》》"+fragmentActivity);
 			fragmentActivity.finish();
 		}*/
 		for (int i = 0; i < list.size(); i++) {
-			L.e("被关闭fragmentActivity-----》》"+list.get(i));
+			L.e("CoreUtil", "被关闭fragmentActivity-----》》"+list.get(i));
 			list.get(i).finish();
 		}
 		list.clear();
@@ -57,10 +57,10 @@ public class CoreUtil {
 	public static void exitApp(){
 		for (AppCompatActivity activity : list) {
 			activity.finish();
-			L.e("exitApp:-----》》"+activity);
+			L.e("CoreUtil", "exitApp:-----》》"+activity);
 		}
 		list.clear();
-		L.e("android.os.Process.killProcess(android.os.Process.myPid());");
+		L.e("CoreUtil", "android.os.Process.killProcess(android.os.Process.myPid());");
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 	

@@ -51,11 +51,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         CoreUtil.addToActivityList(this);
         initView();
-        L.e("登录界面");
+        L.e("LoginActivity", "登录界面");
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             from = bundle.getString(FileData.FROM);
-            L.e(from);
+            L.e("LoginActivity", from);
         }
 
 
@@ -118,8 +118,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
 
-        L.e(userName);
-        L.e(userPassword);
+        L.e("LoginActivity", userName);
+        L.e("LoginActivity", userPassword);
         String url = "http://www.hit56.com:8083/getinfo/login";
         login(userName, userPassword,url);
 
@@ -207,8 +207,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     mToast.setText("登录成功");
                     mToast.show();
                     AppController appController = AppController.getInstance();
+                    registerResultBean.setUserName(userName);
                     appController.saveUserData(registerResultBean);
-                    L.e(registerResultBean.getImageUrl());
+                    L.e("LoginActivity",registerResultBean.getImageUrl());
                     setResult(34);
                     CoreUtil.finishActivityList();
                 }else {

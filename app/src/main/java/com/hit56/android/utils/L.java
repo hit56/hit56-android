@@ -23,21 +23,20 @@ public class L {
 	public static final boolean IS_DEBUG=true; 
 	
 	//标签
-	public static final String TAG="--main--";
-	
-	public static void i(Object obj){
+
+	public static void i(String tag, Object obj){
 		if(IS_DEBUG){
-			Log.i(TAG,obj.toString());
+			Log.i(tag,obj.toString());
 		}
 	}
-	public static void w(Object obj){
+	public static void w(String tag, Object obj){
 		if(IS_DEBUG){
-			Log.w(TAG,obj.toString());
+			Log.w(tag,obj.toString());
 		}
 	}
-	public static void e(Object obj){
+	public static void e(String tag, Object obj){
 		if(IS_DEBUG){
-			Log.e(TAG,obj.toString());
+			Log.e(tag,obj.toString());
 		}
 	}
 }

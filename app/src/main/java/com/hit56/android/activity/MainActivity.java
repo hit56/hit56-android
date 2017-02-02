@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.setClass(MainActivity.this, SearchResultsActivity.class);
                 //启动一个新的Activity
                 startActivity(intent);
-                L.e("搜索");
+                L.e("MainActivity", "搜索");
                 break;
 
             case R.id.action_update://检查更新
@@ -322,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        L.e("请求码:"+requestCode+"结果码:"+requestCode);
+        L.e("MainActivity", "请求码:"+requestCode+"结果码:"+requestCode);
     }
 
     @Override
